@@ -15,6 +15,37 @@ function allitems(category) {
         .then((data) => {
             // console.log(data.pets);
             // displayItems(data.pets);
+
+
+            data.pets.forEach(pet => {
+
+                if (!pet.breed) {
+                    pet.breed = 'No Data Available'; // Set default value if breed is missing
+                  }
+
+
+                  if(!pet.gender)
+                  {
+                    pet.gender = 'No Data Available'; 
+                  }
+
+
+                  if(!pet.date_of_birth)
+                  {
+                    pet.date_of_birth = 'No Data Available'; 
+                  }
+
+
+                // Check each key for null or undefined values
+                Object.keys(pet).forEach(key => {
+                    if (pet[key] === null || pet[key] === undefined  ) {
+                        pet[key] = 'No Data Available';
+                      }
+                });
+              });
+
+
+              
             if (category) {
                 const filteredData = data.pets.filter((element) => element.category === category);
                 console.log(filteredData);
@@ -95,7 +126,7 @@ function displayItems(data) {
                    </div>
                </div><br>
                <div class="w-full">
-                   <button class="btn"><i class="fa-regular fa-thumbs-up"></i></button>
+                   <button onclick="addsidebar_apidata('${element.image}')"    class="btn"><i class="fa-regular fa-thumbs-up"></i></button>
                    <button class="btn">Adopt</button>
                    <button class="btn">Details</button>
                </div>
@@ -130,6 +161,22 @@ function displayCategories(data) {
     })
 
 }
+
+
+
+
+function addsidebar_apidata(element) {
+   
+    const sidebar = document.getElementById("sidebar");
+    const sideelement = document.createElement("div");
+    sideelement.innerHTML = `    
+     <div class="pl-5 mt-5 "><img  class="rounded-xl w-40"   src="${element}" alt="" srcset=""></div>`;
+
+    sidebar.appendChild(sideelement);
+
+}
+
+
 
 
 
