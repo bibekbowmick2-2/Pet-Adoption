@@ -9,13 +9,17 @@ function scrollToSection(id) {
 
 
 
-function allitems(category) {
+function allitems(category,buttonElement) {
+
+   
+
+
     fetch("https://openapi.programming-hero.com/api/peddy/pets")
         .then((res) => res.json())
         .then((data) => {
             // console.log(data.pets);
             // displayItems(data.pets);
-
+            
 
             data.pets.forEach(pet => {
 
@@ -54,7 +58,18 @@ function allitems(category) {
                 console.log(data.pets);
                 displayItems(data.pets);
             }
+
+            const buttons = document.querySelectorAll('.category-button');
+            buttons.forEach(button => {
+                button.classList.remove('active-button');
+            });
+        
+            // Highlight the selected button
+            buttonElement.classList.add('active-button');
         });
+
+
+        
 }
 
 
@@ -152,7 +167,7 @@ function displayCategories(data) {
     data.forEach(element => {
         const category = document.createElement("div");
         category.innerHTML = `
-        <div class="rounded-xl p-3"><button onclick="allitems('${element.category}')" class="btn w-full h-full py-3 font-bold text-xl"><img
+        <div class="rounded-xl p-3"><button  onclick="allitems('${element.category}',this)" class="btn w-full h-full py-3 font-bold text-xl category-button"><img
                             src="${element.category_icon}" alt="">${element.category}</button></div>
         
         `
