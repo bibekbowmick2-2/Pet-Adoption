@@ -87,7 +87,7 @@
                             It is a long established fact that a reader will be distracted by the readable content of a
                             page when looking at its layout. The point of using Lorem Ipsum is that it has a.
                         </p>
-                        <button onclick="scrollToSection('main-section')" class="btn primary-bg px-6 mb-12">View More</button>
+                        <button onclick="scrollToSection('hero')" class="btn primary-bg px-6 mb-12">View More</button>
                         <div class="w-full"><img class="w-full" src="images/pet.webp" alt=""></div>
                     </div>
                 </div>
@@ -99,7 +99,15 @@
     <main>
         <!-- hero section start -->
         <!-- adopt best friend section start -->
-        <section>
+
+
+        <!-- modal ui -->
+        <div id="modal_container">
+            
+        </div>
+
+
+        <section id="hero">
             <div class="hero bg-base-100 py-7">
                 <div class="hero-content text-center">
                     <div class="p-5 lg:max-w-3xl">
@@ -127,8 +135,31 @@
             <div class="p-5 lg:max-w-5xl mx-auto my-5 flex justify-between">
                 <div class="">Best Deal For You</div>
                 <div class=""><button class="btn primary-bg">Sort By Price</button></div>
+
+                
             </div>
         </section>
+
+
+
+
+        <dialog id="my_modal_4" class="modal modal-bottom sm:modal-middle">   
+
+            <div class="modal-box ">
+              <h3 class=" font-extrabold text-center text-5xl ">Congrates</h3>
+              <p class="py-4 text-center">Adoption Process is Start For Your Pet</p>
+              <div   
+           id="countdown" class="text-center py-2 font-extrabold text-4xl">3</div>
+              <div class="modal-action">
+                <form method="dialog">
+                  <button class="btn">Close</button>
+                </form>
+              </div>
+            </div>
+          </dialog>
+
+
+
 
         <section id="main-section">
             <div class="lg:max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-4 lg:space-x-5 ">

@@ -52,10 +52,10 @@ function allitems(category,buttonElement) {
               
             if (category) {
                 const filteredData = data.pets.filter((element) => element.category === category);
-                console.log(filteredData);
+                
                 displayItems(filteredData);
             } else {
-                console.log(data.pets);
+                
                 displayItems(data.pets);
             }
 
@@ -142,8 +142,9 @@ function displayItems(data) {
                </div><br>
                <div class="w-full">
                    <button onclick="addsidebar_apidata('${element.image}')"    class="btn"><i class="fa-regular fa-thumbs-up"></i></button>
-                   <button class="btn">Adopt</button>
-                   <button class="btn">Details</button>
+                   <button id="showAdoptModal_id" onclick="showAdoptModal()" class="btn">Adopt</button>
+                   <button onclick="showDetailsModal('${element.petId}')" class="btn">Details</button>
+                   
                </div>
         
            </div>
@@ -155,6 +156,120 @@ function displayItems(data) {
 
     }
    
+}
+
+
+const showAdoptModal = () => {
+
+    let  countdown = 3;
+   
+
+    const countdownElement = document.getElementById('countdown');
+
+
+
+
+  const intervalId = setInterval(() => {
+    
+    countdownElement.innerText = countdown;
+    countdown--;
+
+    if (countdown === -1) {
+      clearInterval(intervalId);
+      my_modal_4.close();
+      
+      
+    }
+  }, 800);
+
+
+  my_modal_4.showModal()
+
+   
+}
+
+
+
+const showDetailsModal = async(pet_id) => {
+ 
+
+    const response = await fetch(`https://openapi.programming-hero.com/api/peddy/pet/${pet_id}`);
+
+    const data = await response.json();
+
+    console.log(data);
+
+    const modal_container = document.getElementById("modal_container");
+    modal_container.innerHTML = `
+    <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
+                <div class="modal-box">
+                  
+                  <img class="w-full" src="${data.petData.image}" alt="">
+                  <h1 class="text-5xl font-extrabold">${data.petData.pet_name}</h1>
+
+
+                  <div class="grid grid-cols-2">
+                  <div class="flex">
+                   <div class=""><img src="images/Frame.png" alt=""></div>
+                   <div class="">
+                       <p class="text-sm">Breed: ${data.petData.breed} </p>
+                   </div>
+                   </div>
+
+
+                   <div class="flex">
+                   <div class=""><img src="images/Frame (1).png" alt=""></div>
+                   <div class="">
+                       <p class="text-sm">Birth: ${data.petData.date_of_birth} </p>
+                   </div>
+                   </div>
+
+
+
+                   <div class="flex">
+                   <div class=""><img src="images/Frame (3).png" alt=""></div>
+                   <div class="">
+                       <p class="text-sm">Gender: ${data.petData.gender}</p>
+                   </div>
+                   </div>
+
+
+
+                   <div class="flex">
+                   <div class=""><img src="images/Frame (2).png" alt=""></div>
+                   <div class="">
+                       <p class="text-sm">Price: ${data.petData.price}</p>
+                   </div>
+                   </div>
+
+
+                   <div class="flex">
+                   <div class=""><img src="images/Frame (3).png" alt=""></div>
+                   <div class="">
+                       <p class="text-sm">VaccinatedStatus: ${data.petData.vaccinated_status}</p>
+                   </div>
+                   </div>
+
+                   </div>
+
+
+
+                   
+
+                  <h1 class="text-xl font-extrabold">Details Information</h1>
+                  <p>${data.petData.pet_details}</p>
+                  <div class="modal-action">
+                    <form method="dialog">
+                      <!-- if there is a button in form, it will close the modal -->
+                      <button class="btn">Close</button>
+                    </form>
+                  </div>
+                </div>
+              </dialog>
+    
+    `;
+    my_modal_5.showModal()
+    
 }
 
 
