@@ -23,14 +23,17 @@ function sortPrice(){
 function allitems(category,buttonElement) {
 
    
+    document.getElementById("spinner").classList.remove("hidden");
+    
 
-
-    fetch("https://openapi.programming-hero.com/api/peddy/pets")
+    setTimeout(() => {
+       
+        fetch("https://openapi.programming-hero.com/api/peddy/pets")
         .then((res) => res.json())
         .then((data) => {
             // console.log(data.pets);
             // displayItems(data.pets);
-            
+             document.getElementById("spinner").classList.add("hidden");
 
             data.pets.forEach(pet => {
 
@@ -85,6 +88,10 @@ function allitems(category,buttonElement) {
             buttonElement.classList.add('active-button');
         });
 
+    }, 2000);
+
+    
+
 
         
 }
@@ -125,6 +132,30 @@ function displayItems(data) {
     else{
 
         data.forEach(element => {
+             
+            if (!element.breed) {
+                element.breed = 'No Data Available'; // Set default value if breed is missing
+              }
+
+
+              if(!element.gender)
+              {
+                element.gender = 'No Data Available'; 
+              }
+
+
+              if(!element.price)
+              {
+                element.price = 'No Data Available'; 
+              }
+
+
+              if(!element.date_of_birth)
+              {
+                element.date_of_birth = 'No Data Available'; 
+              }
+
+              
 
             const card = document.createElement("div");
                card.innerHTML = `
