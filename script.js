@@ -6,6 +6,17 @@ function scrollToSection(id) {
 
 
 
+function sortPrice(){
+    fetch("https://openapi.programming-hero.com/api/peddy/pets")
+    .then((res) => res.json())
+    .then((data) => {
+        const sortedData = data.pets.sort((a, b) => b.price - a.price);
+        displayItems(sortedData);
+    });
+
+}
+
+
 
 
 
@@ -31,6 +42,12 @@ function allitems(category,buttonElement) {
                   if(!pet.gender)
                   {
                     pet.gender = 'No Data Available'; 
+                  }
+
+
+                  if(pet.price === null)
+                  {
+                    pet.price = 'No Data Available'; 
                   }
 
 
